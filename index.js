@@ -3,16 +3,13 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 
 const app = express();
-const PORT = 5000; // Serveringiz shu portda ishlashi kerak
+const PORT = 5000;
 
-// JSON fayllari yo'llari
 const usersFilePath = './database/users.json';
 const blogsFilePath = './database/blok.json';
 
-// JSON bodyni ishlash
 app.use(bodyParser.json());
 
-// JSON o'qish va yozish uchun funksiyalar
 const readFile = (filePath) => {
   if (!fs.existsSync(filePath)) return [];
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -22,7 +19,6 @@ const writeFile = (filePath, data) => {
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
 };
 
-// 1. Foydalanuvchi Ro'yxatdan O'tkazish
 app.post('/users', (req, res) => {
   const { username, password, fullName, age, email, gender } = req.body;
 
@@ -54,7 +50,6 @@ app.post('/users', (req, res) => {
   res.status(201).json({ message: 'Foydalanuvchi muvaffaqiyatli qo‘shildi.', user: newUser });
 });
 
-// 2. Foydalanuvchi Profili Bilan Ishlash
 app.get('/users/:identifier', (req, res) => {
   const { identifier } = req.params;
   const users = readFile(usersFilePath);
@@ -92,7 +87,6 @@ app.delete('/users/:identifier', (req, res) => {
   res.json({ message: 'Foydalanuvchi muvaffaqiyatli o‘chirildi.' });
 });
 
-// 3. Blog Yozuvlari Bilan Ishlash
 app.post('/blogs', (req, res) => {
   const { title, content, author, tags } = req.body;
 
@@ -135,7 +129,6 @@ app.put('/blogs/:id', (req, res) => {
 });
 
 app.get('/users/:identifier', (req, res) => {
-	// Kod foydalanuvchini 'identifier' orqali qidiradi
   });
 
 app.delete('/blogs/:id', (req, res) => {
@@ -154,7 +147,6 @@ app.get('/', (req, res) => {
 	res.send('Welcome to the Blog Website!');
   });
 
-// Serverni ishga tushirish
 app.listen(PORT, () => {
 	console.log(`Server running at http://localhost:${PORT}`);
   });
