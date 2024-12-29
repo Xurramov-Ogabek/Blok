@@ -1,0 +1,9 @@
+[
+	{
+	  "id": 1,
+	  "title": "Welcome to My Blog",
+	  "content": "This is the first post on this blog!",
+	  "author": "admin",
+	  "tags": ["welcome", "introduction"]
+	}
+  ]
